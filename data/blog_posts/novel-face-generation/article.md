@@ -9,7 +9,7 @@ summary: "An overview into an efficient way to tile 2D surfaces in a constrained
 
 From chess to Sid Meier's Civilization, there are countless games that use squares, hexagons, and triangles (okay maybe not triangles) to build their game grid. And for good reason too—they are the only regular polygons that can be seamlessly tiled to form a [tesselation](https://www.mathsisfun.com/geometry/tessellation.html).
 
-| ![alt text](/images/asset1.png) |
+| ![alt text](images/asset1.png) |
 |:--:|
 | *From [baharna](https://baharna.com/polymad/intro/proem.htm).* |
 
@@ -19,13 +19,13 @@ But what if we wanted something more...*interesting*? Something with more unique
 
 As far as I am aware the developers haven't talked about how they made their maps, but I find it likely that they used a [Voronoi diagram](https://builtin.com/data-science/voronoi-diagram) to generate their tiles. It is commonly used for making organic looking tiles and has broader applications besides making grids. This technique works by placing random points on a plane and then mapping the region closest to them. 
 
-| ![alt text](/images/asset2.gif) |
+| ![alt text](images/asset2.gif) |
 |:--:|
 | *From [Wikipedia](https://en.wikipedia.org/wiki/Voronoi_diagram#).* |
 
 The tiles can be unevenly sized, so a post-processing step can be done to repeatedly reapply voronoi's algorithm on the cells' centroid, or geometric center.
 
-| ![alt text](/images/asset3.gif) |
+| ![alt text](images/asset3.gif) |
 |:--:|
 | *From [Towards Data Science](https://towardsdatascience.com/the-fascinating-world-of-voronoi-diagrams-da8fc700fa1b).* |
 
@@ -47,7 +47,7 @@ The following is my journey at attempting to making a more structured tiling alg
 
 Since I wanted to work with up to six-sided polygons, I first began reading up on hexagons from the nice [blog post from redblobgames](https://www.redblobgames.com/grids/hexagons/). They detailed several ways for laying out a grid in memory, so I arbitrarily chose the version where every even column is shifted down slightly.
 
-| ![alt text](/images/asset4.png) |
+| ![alt text](images/asset4.png) |
 |:--:|
 | *From [redblobgames](https://www.redblobgames.com/grids/hexagons/).* |
 
@@ -63,24 +63,24 @@ To make a seamless grid of tiles with no gaps, each tile needs to share vertices
 
 Imagine a point at the center of each hexagon. Then for each of its adjacent neighbors, you draw a line through them to form a polygon. 
 
-| ![Hexagon grid](/images/asset5.gif) |
+| ![Hexagon grid](images/asset5.gif) |
 |:--:|
 
 You repeat this for every tile until you have a series of overlapping lines. Finding the vertices of a tile's polygon, then, was supposed to be as simple as placing the vertex at the center of all intersecting line segments. This was supposed to make it so that adjacent tiles would also be able to calculate the exact same vertex as well.
 
-| ![alt text](/images/asset6.gif) |
+| ![alt text](images/asset6.gif) |
 |:--:|
 
 The problem with this approach—besides the large number of intersections that need to be calculated—was the assumption that each tile was dependent only on its six nearest neighbors. It would turn out that assumption was very wrong.
 
 Let's look at an example. Because this grid is supposed to handle tiles with three to six adjacencies, it should be able to generate a triangular grid. The following is a simple colored-in example.
 
-| ![alt text](/images/asset7.png) |
+| ![alt text](images/asset7.png) |
 |:--:|
 
 When transcribed to a hex grid, it would look like this:
 
-| ![alt text](/images/asset8.png) |
+| ![alt text](images/asset8.png) |
 |:--:|
 
 However, note the pink dot. Despite assuming a tile in a hexagon grid only needs to care about its connections with its neighbors, there are clearly other tiles that can share the same vertex; six different tiles need to be checked for the triangle to create a vertex. It turns out that in order to generate a vertex, you need to examine **every single** connection in the graph. This will be shown in the next approach.
@@ -89,12 +89,12 @@ However, note the pink dot. Despite assuming a tile in a hexagon grid only needs
 My next (and thankfully final) approach was to do away with drawing a line through a tile's neighbors. Instead, you simply draw a line from a tile *to* its neighbors.
 
 This results in this graph structure for a hexagonal grid.
-| ![alt text](/images/asset9.png) |
+| ![alt text](images/asset9.png) |
 |:--:|
 
 You may notice something interesting about this image. There is a polygon formed from the connections of all the green lines (the adjacencies between each tile). In the center of each of these polygons formed is actually a vertex of a hexagon. This forms the basis of this tiling algorithm: by finding the center of each of these polygons, you can turn those centers into the vertices for the tiles. An example of how this would work is shown below for a hexagonal grid: 
 
-| ![alt text](/images/asset10.gif) |
+| ![alt text](images/asset10.gif) |
 |:--:|
 
 For each edge a tile is connected to, there is an associated polygon and centroid/vertex. Each of those vertices can be joined together to form the final polygon.
@@ -102,34 +102,34 @@ For each edge a tile is connected to, there is an associated polygon and centroi
 All the images shown so far are recreations from my own notes when working on the algorithm. These following grids are generated and rendered in [Unity 6](https://unity.com/) showcasing an actual implementation.
 
 
-| ![alt text](/images/asset12.png) |
+| ![alt text](images/asset12.png) |
 |:--:|
 | A hexagonal grid. |
 
-| ![alt text](/images/asset13.png) |
+| ![alt text](images/asset13.png) |
 |:--:|
 | A quadrilateral grid. |
 
-| ![alt text](/images/asset11.png) |
+| ![alt text](images/asset11.png) |
 |:--:|
 | A triangular grid. |
 
 The results look pretty strange for the square and triangular grids since the coordinate system was for hexagons. In fact, with the intended center of the hexagon's shown, we can see that the tiles' are pretty unevenly sized.
 
-| ![alt text](/images/asset16.png) |
+| ![alt text](images/asset16.png) |
 |:--:|
 
 I experimented with several ways to improve the tiles from trying to push vertices to their polygon's optimal angle, moving based on the centroid, repeatedly applying the algorithm, etc.
 
 In the end, the best result was to define a minimum radius from the intended center and push the vertices away. Then the center of the tile would be recalculated. This is done over a few iterations to smoothly transition the vertices until the movement becomes minimal.
 
-| ![alt text](/images/asset17.gif) |
+| ![alt text](images/asset17.gif) |
 |:--:|
 
 # Face Generation Algorithm
 The crux of the Face Generation Algorithm relies on the fact that the grid of tiles can be represented as a [planar graph](https://cp-algorithms.com/geometry/planar.html). A planar graph is special because it has the property that edges do not intersect except at nodes. Thanks to this fun fact, we can calculate the polygon around each tile in O(*n*) linear time.
 
-| ![alt text](/images/asset19.png) |
+| ![alt text](images/asset19.png) |
 |:--:|
 | *From [Transport Geometry](https://transportgeography.org/contents/methods/graph-theory-definition-properties/planar-non-planar-graph/).* |
 
@@ -137,7 +137,7 @@ This is because we only need to traverse each edge exactly once; you iteratively
 
 This lets us calculate the "regions", or faces if using planar graph terminology, that a tile is a part of. Each tile can form a polygon where each vertex is the centroid of each region.
 
-| ![alt text](/images/asset21.gif) |
+| ![alt text](images/asset21.gif) |
 |:--:|
 
 Every edge in a planar graph is part of a face. There are two types of faces: **inner** face and a single **outer** face. The outer face is the unbounded surface around the entire graph. In order to ensure each tile in the grid has edges that are part of bounded inner faces, you can just add tiles at the border of the graph. We'll refer to the original tiles as the "inner tiles" and the border tiles as the "outer" tiles.
@@ -155,7 +155,7 @@ Assumptions:
 **A grid of tiles where each tile can be adjacent to only its hexagonal neighbors is a planar graph.**
 - Take the simplest hexagonal grid, which can be seen as planar.
 
-| ![alt text](/images/asset20.png) |
+| ![alt text](images/asset20.png) |
 |:--:|
 
 - If you add a tile anywhere to the grid and connect it with its neighbors, its edges won't intersect with the existing ones.

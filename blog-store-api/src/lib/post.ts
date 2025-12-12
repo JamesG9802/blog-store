@@ -17,7 +17,7 @@ export interface Post {
   /**
    * The date of publication.
    */
-  date: string;
+  date: Date;
 
   /**
    * The summary of the post.
@@ -64,7 +64,7 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
 
   return {
     title: data.title,
-    date: data.date,
+    date: new Date(Date.parse(data.date)),
     tags,
     summary,
     slug: data.title.toLowerCase().replace(/\s+/g, "-"),

@@ -51,7 +51,8 @@ export async function get_all_blog_posts(repository_owner: string, repository_na
       const file_map: Map<string, string> = new Map<string, string>();
       for (const media of media_files) {
         if (media.name !== "article.md" && media.type === "file" && media.download_url) {
-          const media_path: string = media.path.substring(folder.path.length);
+          //  Add 1 to remove the trailing slash.
+          const media_path: string = media.path.substring(folder.path.length + 1);
           file_map.set(media_path, media.download_url);
         }
       }

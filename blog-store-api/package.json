@@ -1,9 +1,12 @@
 {
-  "name": "@jgaiser9802/blog-store",
-  "version": "1.0.0",
+  "name": "@jamesg9802/blog-store",
+  "version": "1.0.1",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"

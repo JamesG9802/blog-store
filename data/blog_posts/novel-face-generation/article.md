@@ -2,7 +2,7 @@
 title: "A Novel Approach to Tiling Grids with Planar Graphs"
 date: "2025-01-25"
 tags: ["Algorithm", "Research"]
-summary: "An efficient way to tile 2D surfaces in a constrained manner."
+summary: "An overview into an efficient way to tile 2D surfaces in a constrained manner."
 ---
 
 # Introduction

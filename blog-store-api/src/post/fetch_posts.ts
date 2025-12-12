@@ -1,5 +1,5 @@
-import { GitHubContent } from "./lib/github";
-import { parse_post, Post } from "./lib/post";
+import { GitHubContent } from "../lib/github";
+import { parse_post, Post } from "../lib/post";
 
 const DATA_FOLDER: string = "data";
 const BLOG_POST_FOLDER: string = `${DATA_FOLDER}/blog_posts`;

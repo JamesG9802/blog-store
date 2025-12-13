@@ -13,6 +13,11 @@ jobs:
       packages: write # allow publishing to GitHub Packages
       contents: read
 
+    # The API is stored in this folder.
+    defaults:
+      run:
+        working-directory: blog-store-api
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

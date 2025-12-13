@@ -62,16 +62,23 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     return `![${alt}](${url})`;
   });
 
+  /**
+   * Cleans up a slug to be URL-conformant. 
+   */
+  function clean_slug(str: string): string {
+    return str
+      .toLowerCase().normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")   // remove accents
+      .replace(/[^a-z0-9]+/g, "-")       // replace non-alphanumerics with -
+      .replace(/^-+|-+$/g, "");
+  }
+
   return {
     title: data.title,
     date: new Date(Date.parse(data.date)),
     tags,
     summary,
-    slug: data.title
-      .toLowerCase().normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "")   // remove accents
-      .replace(/[^a-z0-9]+/g, "-")       // replace non-alphanumerics with -
-      .replace(/^-+|-+$/g, ""),          // trim leading/trailing -
+    slug: data.slug || clean_slug(data.title),
     content: updatedContent,
   };
 }

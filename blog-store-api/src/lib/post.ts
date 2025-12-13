@@ -78,7 +78,7 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     date: new Date(Date.parse(data.date)),
     tags,
     summary,
-    slug: clean_slug(data.slug) || clean_slug(data.title),
+    slug: (data.slug && clean_slug(data.slug)) || clean_slug(data.title),
     content: updatedContent,
   };
 }

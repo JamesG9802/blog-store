@@ -67,7 +67,11 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     date: new Date(Date.parse(data.date)),
     tags,
     summary,
-    slug: data.title.toLowerCase().replace(/\s+/g, "-"),
+    slug: data.title
+      .toLowerCase().normalize("NKFD")
+      .replace(/[\u0300-\u036f]/g, "")   // remove accents
+      .replace(/[^a-z0-9]+/g, "-")       // replace non-alphanumerics with -
+      .replace(/^-+|-+$/g, ""),          // trim leading/trailing -
     content: updatedContent,
   };
 }

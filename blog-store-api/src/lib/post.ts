@@ -78,6 +78,23 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
       .replace(/^-+|-+$/g, "");
   }
 
+  function strip_markdown(md: string): string {
+    return md
+      // Remove code blocks
+      .replace(/```[\s\S]*?```/g, "")
+      // Remove inline code
+      .replace(/`[^`]*`/g, "")
+      // Remove images, keep alt text
+      .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+      // Remove links, keep link text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      // Remove other markdown symbols like **, *, #, >, etc.
+      .replace(/[#>*_~]/g, "")
+      // Normalize whitespace
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   return {
     title: data.title,
     date: new Date(Date.parse(data.date)),
@@ -85,6 +102,6 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     summary,
     slug: (data.slug && clean_slug(data.slug)) || clean_slug(data.title),
     content: updated_content,
-    reading_duration: Math.floor(updated_content.split(" ").length * 200 / 60)
+    reading_duration: Math.floor(strip_markdown(updated_content).split(/\s+/).length * 200 / 60)
   };
 }

@@ -15,6 +15,6 @@ jobs:
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: token ${{ secrets.PAGES_PAT }}" \
+            -H "Authorization: Bearer ${{ secrets.PAGES_PAT }}" \
             https://api.github.com/repos/jamesg9802/jamesg9802.github.io/dispatches \
             -d '{"event_type": "data-update", "client_payload": {"source_repo": "data-store"}}'

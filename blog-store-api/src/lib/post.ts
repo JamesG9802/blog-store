@@ -33,6 +33,11 @@ export interface Post {
    * The actual markdown content that will be rendered by the client.
    */
   content: string;
+
+  /**
+   * The number of estimated seconds to read the article.
+   */
+  reading_duration: number;
 }
 
 /**
@@ -53,7 +58,7 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
   const tags = Array.isArray(data.tags) ? data.tags : [];
   const summary = data.summary ?? "";
 
-  const updatedContent = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, path) => {
+  const updated_content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, path) => {
     const url = file_map.get(path);
     if (!url) {
       console.warn(`Warning: No file_map entry for ${path}`);
@@ -79,6 +84,7 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     tags,
     summary,
     slug: (data.slug && clean_slug(data.slug)) || clean_slug(data.title),
-    content: updatedContent,
+    content: updated_content,
+    reading_duration: Math.floor(updated_content.split(" ").length * 200 / 60)
   };
 }

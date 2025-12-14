@@ -102,6 +102,6 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
     summary,
     slug: (data.slug && clean_slug(data.slug)) || clean_slug(data.title),
     content: updated_content,
-    reading_duration: Math.floor(strip_markdown(updated_content).split(/\s+/).length * 200 / 60)
+    reading_duration: Math.floor(strip_markdown(updated_content).split(/\s+/).length / 1200)
   };
 }

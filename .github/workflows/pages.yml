@@ -1,0 +1,20 @@
+name: Notify Pages Repo on Data Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/**"
+
+jobs:
+  notify_pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Pages repository workflow
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: token ${{ secrets.PAGES_PAT }}" \
+            https://api.github.com/repos/username/pages-repo/dispatches \
+            -d '{"event_type": "data-update", "client_payload": {"source_repo": "data-store"}}'

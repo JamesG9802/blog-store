@@ -8,4 +8,4 @@ slug: "judging a book by its cover"
 
 # Work in Progress
 
-Temporary link: [Final Paper](https://docs.google.com/document/d/1ODyYcD6tY4b88tPcV9M8vbmrV1Q0gjI413KyZ3zuel8/edit?usp=sharing)
+*Read the technical paper [here](paper.pdf).*

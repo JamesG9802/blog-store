@@ -219,7 +219,7 @@ While this version of FGA was proposed for hexagonal grids (since every tile can
 The Face Generation Algorithm is a viable alternative for creating grids when there is a need to specify the adjacencies of tiles. It runs in linear time complexity and can create decent tiles with a post-processing step that also runs in linear time. 
 
 # Sources
-1. [Tessellation](Tessellation)
+1. [Tessellation](https://www.mathsisfun.com/geometry/tessellation.html)
 2. [Polygon Madness](https://baharna.com/polymad/intro/proem.htm)
 3. [Frostpunk 2](https://11bitstudios.com/games/frostpunk-2/)
 4. [The Fascinating World of Voronoi Diagrams](https://builtin.com/data-science/voronoi-diagram)

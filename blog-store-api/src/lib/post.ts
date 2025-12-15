@@ -58,13 +58,14 @@ export function parse_post(text: string, file_map: Map<string, string>): Post {
   const tags = Array.isArray(data.tags) ? data.tags : [];
   const summary = data.summary ?? "";
 
-  const updated_content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, path) => {
+  //  Detects relative links and image paths.
+  const updated_content = content.replace(/\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, path) => {
     const url = file_map.get(path);
     if (!url) {
       console.warn(`Warning: No file_map entry for ${path}`);
       return match; // fallback to original
     }
-    return `![${alt}](${url})`;
+    return `[${alt}](${url})`;
   });
 
   /**

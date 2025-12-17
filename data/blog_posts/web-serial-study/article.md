@@ -1,5 +1,5 @@
 ---
-title: "(WIP) Judging a Book by it's Cover: Web Serial Regression Analysis"
+title: "Judging a Book by it's Cover: Web Serial Regression Analysis"
 date: "2025-12-25"
 tags: ["Machine Learning", "Research"]
 summary: "An ML project examining important factors among web serials."
@@ -12,7 +12,7 @@ slug: "judging a book by its cover"
 
 When people think of “books”, they likely imagine something physical, with dozens to hundreds of pages that you can cut your fingers on. They may also lump in text digitized to e-books or even include audiobooks in their own personal definition. 
 
-There is, however, another form of literature that is distinct enough from the standard definition of books: web fiction. 
+There is, however, another form of literature that is distinct enough from the standard definition of books: **web fiction**. 
 
 Web fiction, also known as web serials, is a growing domain of literature that is almost exclusively published digitally online. Unlike traditional literature, these stories tend to be released in serialized installments, hence the name, by new or aspiring authors with comparatively looser quality control. For some writers, this can be a stepping stone to self-publishing an e-book or working with traditional publishers.
 
@@ -22,7 +22,7 @@ Yet despite this scale, web fiction remains understudied in academic research. W
 
 I want to answer the following question today: **can you predict reader rankings from web fictions’ metadata and book cover?**
 
-TLDR: [skip to the results](#key-results).
+TLDR: [skip to the results](#Key Results).
 
 # Methodology
 

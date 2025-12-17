@@ -37,7 +37,7 @@ If you want a natural-looking grid, you can stop right here and call it a day. B
 
 The following is my journey at attempting to making a more structured tiling algorithm, hereafter just referred to as Face Generation Algorithm (FGA), that runs in linear O(*n*) time for hexagonal grids with the key benefit of **being able to specify the adjacencies for every single tile**. With some work, it could be adapted for more exotic tilings.
 
-[Click here if you want to skip to the algorithm](#Face Generation Algorithm),  
+[Click here if you want to skip to the algorithm](#face-generation-algorithm),  
 
 # Background Experiments
 
@@ -126,7 +126,7 @@ In the end, the best result was to define a minimum radius from the intended cen
 | ![alt text](images/asset17.gif) |
 |:--:|
 
-# Face Generation Algorithm
+<h1 id='face-generation-algorithm'>Face Generation Algorithm</h1>
 The crux of the Face Generation Algorithm relies on the fact that the grid of tiles can be represented as a [planar graph](https://cp-algorithms.com/geometry/planar.html). A planar graph is special because it has the property that edges do not intersect except at nodes. Thanks to this fun fact, we can calculate the polygon around each tile in O(*n*) linear time.
 
 | ![alt text](images/asset19.png) |

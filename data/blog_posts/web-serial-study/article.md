@@ -22,7 +22,7 @@ Yet despite this scale, web fiction remains understudied in academic research. W
 
 I want to answer the following question today: **can you predict reader rankings from web fictions’ metadata and book cover?**
 
-TLDR: [skip to the results](#Key Results).
+TLDR: [skip to the results](#key-results).
 
 # Methodology
 
@@ -117,7 +117,7 @@ We see that the number of ratings and favourites play a large role influencing p
 | ![Teacher text importance plot - LIME](images/teacher_summed_LIME.png) |
 |:--:|
 
-## Key Results
+<h1 id='key-results'>Key Results</h1>
 
 * Logically, stories with more ratings, favorites, or views tend to score higher, which makes intuitive sense.  
 * The speed and consistency of early chapter releases are correlated weakly with ratings.  

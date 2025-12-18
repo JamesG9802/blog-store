@@ -151,22 +151,22 @@ This makes the previously described work less valuable as some metrics, like vie
 
 To address this, I’ve taken the liberty to train and evaluate another model purely with information that an author would have before a story releases.
 
-This model’s performance is worse, with an average error within 14 percentile points and can only explain around 62% of the variance within the dataset However, it reflects similar trends as the previous models.
+This model’s performance is worse, with an average error within 14 percentile points and can only explain around 62% of the variance within the dataset. However, it reflects similar trends as the previous models.
 
-Blurbs and titles are still the most influential features for predicting ranking. There are, however, some features that show up as more influential than before.
+While blurbs and titles are still the most influential features for predicting ranking, there are some features that show up as more influential than before.
 
-Where previously, the chapter release timings were more nebulous, there is a clear trend:
+Where previously, the chapter release timings were more nebulous, there is a clear trend now when plotting the most important features:
 
-| ![Author Only Ranking Model - Total importance SHAP](images/extra_shap.png) |
+| ![Author Only Ranking Model - Total importance SHAP plot](images/extra_shap.png) |
 |:--:|
 
-When viewing how much the individual features influence predictions, we see:
+When viewing how much the individual features influence predictions, we also see:
 
-| ![Author Only Ranking Model - Mean importance SHAP](images/extra_shap_waterfall.png) |
+| ![Author Only Ranking Model - Mean importance SHAP plot](images/extra_shap_waterfall.png) |
 |:--:|
 | Negative values correspond to rankings closer to 0, which represent the most popular stories. So increasing blue features means increasing ranking. |
 
-Generally, you can conclude:
+Generally, you can conclude from this additional work that:
 1. Releasing chapters faster is better, particularly for the first 10 installments.
 2. High consistency in release schedules matters for the first 50 chapters, but this relationship falls off for the first 10 or 25 chapters. 
 3. Higher word counts in the blurb slightly improve the model’s predicted rating.

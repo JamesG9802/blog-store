@@ -143,7 +143,7 @@ Of course, that does not accurately reflect the truth. Though the models confirm
 
 So while it seems that people do, in fact, not judge stories by their cover, they will, in fact, place a large emphasis on a web serial’s title and blurb.  
 
-<h1 id="additional-research"># 12/18/2025 — Additional Research</h1>
+<h1 id="additional-research">12/18/2025 — Additional Research</h1>
 
 After writing this post, I realize that a potential use case of this research is to provide an objective measure against which potential authors can use to evaluate their work.
 

@@ -8,6 +8,8 @@ slug: "judging a book by its cover"
 
 *Read the technical paper [here](paper.pdf).*
 
+*Edit 12/18/2025: This post has been updated to reflect some additional work. See [Additional Research](#additional-research).*
+
 # Introduction
 
 When people think of “books”, they likely imagine something physical, with dozens to hundreds of pages that you can cut your fingers on. They may also lump in text digitized to e-books or even include audiobooks in their own personal definition. 
@@ -136,10 +138,40 @@ A not insignificant part of a story’s reception is tied to its popularity in t
 Of course, that does not accurately reflect the truth. Though the models confirm that higher-quality stories tend to receive higher ratings, the most important and actionable insights are simple:
 
 1. Focus on the title and blurb. These have the strongest influence on predicted ratings.  
-2. Chapter timing is slightly important. There are hints that update patterns relate to ranking, but nothing to base a strategy on.  
+2. Chapter timing is slightly important. ~~There are hints that update patterns relate to ranking, but nothing to base a strategy on.~~
 3. Cover art is less critical than you might think. Like what prior research suggests, readers care more about content cues than visual design.
 
 So while it seems that people do, in fact, not judge stories by their cover, they will, in fact, place a large emphasis on a web serial’s title and blurb.  
+
+<h1 id="additional-research"># 12/18/2025 — Additional Research</h1>
+
+After writing this post, I realize that a potential use case of this research is to provide an objective measure against which potential authors can use to evaluate their work.
+
+This makes the previously described work less valuable as some metrics, like views, favourites, and ratings, would be unavailable to them.
+
+To address this, I’ve taken the liberty to train and evaluate another model purely with information that an author would have before a story releases.
+
+This model’s performance is worse, with an average error within 14 percentile points and can only explain around 62% of the variance within the dataset However, it reflects similar trends as the previous models.
+
+Blurbs and titles are still the most influential features for predicting ranking. There are, however, some features that show up as more influential than before.
+
+Where previously, the chapter release timings were more nebulous, there is a clear trend:
+
+| ![Author Only Ranking Model - Total importance SHAP](images/extra_shap.png) |
+|:--:|
+
+When viewing how much the individual features influence predictions, we see:
+
+| ![Author Only Ranking Model - Mean importance SHAP](images/extra_shap_waterfall.png) |
+|:--:|
+| Negative values correspond to rankings closer to 0, which represent the most popular stories. So increasing blue features means increasing ranking. |
+
+Generally, you can conclude:
+1. Releasing chapters faster is better, particularly for the first 10 installments.
+2. High consistency in release schedules matters for the first 50 chapters, but this relationship falls off for the first 10 or 25 chapters. 
+3. Higher word counts in the blurb slightly improve the model’s predicted rating.
+
+As a final statement, this research is intended to help authors be data-informed and inspire future work into this field. The information given reflects general observations and shouldn’t be relied on blindly to make decisions or strategies.
 
 # References
 - [Writeup](paper.pdf) 
